@@ -8,8 +8,6 @@
         <ion-title slot="start" v-if="quizz && user">Welkom {{user.name}}!</ion-title>
         <ion-title v-else-if="quizz">Welkom bij {{ quizz.name }}</ion-title>
         <ion-title v-else>Welkom</ion-title>
-        <ion-title slot="end" v-if="selectedQuestion">Vraag {{ selectedQuestion.nr }} / {{
-          colQuestions.length }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
