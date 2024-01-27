@@ -16,7 +16,7 @@
     <h1>U kunt beginnen met de quiz voor {{ colUsers.length }} deelnemers</h1>
   </div>
   <div id="container" v-else-if="user && !user.playing">
-    <h1>Bedankt voor het spelen {{ user.name }} u hebt verloren met een score van {{ user.score }}</h1>
+    <h1>Bedankt voor het spelen {{ user.name }}, u heeft verloren met een score van {{ user.score }}</h1>
   </div>
   <div id="container" v-else-if="!user">
     <ion-input label="Quiz pin" type="number" v-model.number="nPin" placeholder="Geef de pin van de quiz"></ion-input>
