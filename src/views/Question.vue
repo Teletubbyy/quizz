@@ -65,8 +65,8 @@ async function joinQuiz(){
   colQuizz.value.filter((q)=>q.pin==nPin.value).map((q)=>quizz.value = q) //Filter quislizt on pin and set current quiz
   if (!quizz.value) return alert('Ongeldige pin')
   if (!tName.value) return alert('Geef je naam op')
-  const res = await saveDoc('users',{name:tName.value, score: 0}) // Save user without initial score
-  user.value = {id: res.id, name:tName.value, playing: true} // Set user without score
+  const res = await saveDoc('users',{name:tName.value, score: 0})
+  user.value = {id: res.id, name:tName.value, score: 0, playing: true}
 }
 watch(answer,(value)=>{//Beantwoorden van de vraag
   if (!selectedQuestion.value) return false
