@@ -12,29 +12,33 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      {{ currentUser }}
-      <div id="container" v-if="isHost"><h1>U kunt beginnen met de quiz voor {{ colUsers.length }} deelnemers</h1></div>
-      <div id="container" v-else-if="user && !user.playing"><h1>Bedankt voor het spelen {{ user.name }} u hebt verloren met een score van {{ user.score }}</h1></div>
-      <div id="container" v-else-if="!user">
-        <ion-input label="Quiz pin" type="number" v-model.number="nPin" placeholder="Geef de pin van de quiz"></ion-input>
-        <ion-input label="Naam" v-model="tName" placeholder="Wat is je naam?"></ion-input>
-        <ion-button @click="joinQuiz">Ik doe mee!</ion-button>
-        <ion-button @click="hostQuiz">Ik host de quiz</ion-button>
-      </div>
-      <div id="container" v-else-if="selectedQuestion && user && user.playing">
-        <strong class="capitalize">{{ selectedQuestion.nr }}. {{ selectedQuestion.question }}</strong>
-        <p v-if="selectedQuestion.description">{{ selectedQuestion.description }}</p>
-        <ion-list>
-          <ion-radio-group value="strawberries" v-model="answer">
-            <ion-item v-for="(option, i) in selectedQuestion.options">
-              <ion-radio :disabled="answer ? true : false" :value="i">{{ chars[i] }}. {{ option }}</ion-radio></ion-item>
-          </ion-radio-group>
-        </ion-list>
-      </div>
-      <div id="container" v-else>
-        <strong class="capitalize">Wachten op het starten van de quiz</strong>
-      </div>
-    </ion-content>
+  <div id="container" v-if="isHost">
+    <h1>U kunt beginnen met de quiz voor {{ colUsers.length }} deelnemers</h1>
+  </div>
+  <div id="container" v-else-if="user && !user.playing">
+    <h1>Bedankt voor het spelen {{ user.name }} u hebt verloren met een score van {{ user.score }}</h1>
+  </div>
+  <div id="container" v-else-if="!user">
+    <ion-input label="Quiz pin" type="number" v-model.number="nPin" placeholder="Geef de pin van de quiz"></ion-input>
+    <ion-input label="Naam" v-model="tName" placeholder="Wat is je naam?"></ion-input>
+    <ion-button @click="joinQuiz">Ik doe mee!</ion-button>
+    <ion-button @click="hostQuiz">Ik host de quiz</ion-button>
+  </div>
+  <div id="container" v-else-if="selectedQuestion && user && user.playing">
+    <strong class="capitalize">{{ selectedQuestion.nr }}. {{ selectedQuestion.question }}</strong>
+    <p v-if="selectedQuestion.description">{{ selectedQuestion.description }}</p>
+    <ion-list>
+      <ion-radio-group value="strawberries" v-model="answer">
+        <ion-item v-for="(option, i) in selectedQuestion.options">
+          <ion-radio :disabled="answer ? true : false" :value="i">{{ chars[i] }}. {{ option }}</ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </div>
+  <div id="container" v-else>
+    <strong class="capitalize">Wachten op het starten van de quiz</strong>
+  </div>
+</ion-content>
   </ion-page>
 </template>
 
@@ -61,7 +65,7 @@ async function joinQuiz(){
   colQuizz.value.filter((q)=>q.pin==nPin.value).map((q)=>quizz.value = q) //Filter quislizt on pin and set current quiz
   if (!quizz.value) return alert('Ongeldige pin')
   if (!tName.value) return alert('Geef je naam op')
-  const res = await saveDoc('users',{name:tName.value, score: null}) // Save user without initial score
+  const res = await saveDoc('users',{name:tName.value, score: 0}) // Save user without initial score
   user.value = {id: res.id, name:tName.value, playing: true} // Set user without score
 }
 watch(answer,(value)=>{//Beantwoorden van de vraag
