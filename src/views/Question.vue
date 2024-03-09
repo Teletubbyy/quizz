@@ -36,7 +36,7 @@
     </ion-list>
   </div>
   <div id="container" v-else>
-    <strong class="capitalize">Wachten op het starten van de quiz</strong>
+    <strong class="capitalize">Wachten op het starten van de volgende vraag</strong>
   </div>
 </ion-content>
   </ion-page>
